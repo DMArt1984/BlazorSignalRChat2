@@ -1,0 +1,17 @@
+﻿@page "/counter"
+
+<h3>Counter</h3>
+
+<p>Текущее значение: @count</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Увеличить</button>
+
+@code {
+    private int count = 0;
+
+    private void IncrementCount()
+    {
+        count++;
+    }
+}
+
