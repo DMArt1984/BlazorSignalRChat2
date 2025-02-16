@@ -2,4 +2,53 @@
 
 <h3>Fetch Data</h3>
 
-<p>Здесь будет загрузка данных...</p>
+@if (forecasts is null)
+{
+    <p><em>Загрузка данных...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Температура (°C)</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Имитируем загрузку данных (замени на реальный API-запрос)
+        await Task.Delay(1000);
+        forecasts = new[]
+        {
+            new WeatherForecast { Date = DateTime.Now, TemperatureC = 25, Summary = "Солнечно" },
+            new WeatherForecast { Date = DateTime.Now.AddDays(1), TemperatureC = 22, Summary = "Облачно" },
+            new WeatherForecast { Date = DateTime.Now.AddDays(2), TemperatureC = 18, Summary = "Дождь" },
+        };
+    }
+
+    private class WeatherForecast
+    {
+        public DateTime Date { get; set; }
+        public int TemperatureC { get; set; }
+        public string Summary { get; set; }
+    }
+}
+
